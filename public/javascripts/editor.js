@@ -77,6 +77,7 @@ function sync(key) {
       }
       $('#title').val(article.title);
       $('#tags').val(article.tags);
+      $('#thumbnail').val(article.thumbnail);
       $('#categories').val(article.categories);
       $('#date').parent().addClass('is-dirty');
       $('#tags').parent().addClass('is-dirty');
@@ -94,6 +95,7 @@ function sync(key) {
       }
       $('#title').val(article.title);
       $('#tags').val(article.tags);
+      $('#thumbnail').val(article.thumbnail);
       $('#categories').val(article.categories);
       $('#date').parent().addClass('is-dirty');
       $('#tags').parent().addClass('is-dirty');
@@ -106,10 +108,11 @@ function sync(key) {
     var title = $('#title').val();
     var date = $('#date').val();
     var tags = $('#tags').val();
+    var thumbnail = $('#thumbnail').val();
     var categories = $('#categories').val();
     var syncData = TextSync.sync(editor.getValue());
     var article = {'title': title, 'date': date, 'tags': tags,
-                  'categories': categories, 'data': syncData, 'key': key};
+                  'categories': categories, 'data': syncData, 'key': key, 'thumbnail': thumbnail};
     socket.emit('syncText', article);
     socket.on('syncEnd', function (data) {
       done();
@@ -120,10 +123,11 @@ function sync(key) {
     var title = $('#title').val();
     var date = $('#date').val();
     var tags = $('#tags').val();
+    var thumbnail = $('#thumbnail').val();
     var categories = $('#categories').val();
     var syncData = TextSync.sync(editor.getValue());
     var article = {'title': title, 'date': date, 'tags': tags,
-                  'categories': categories, 'data': syncData, 'key': key};
+                  'categories': categories, 'data': syncData, 'key': key, 'thumbnail': thumbnail};
     socket.emit('syncText', article);
     socket.on('syncEnd', function (data) {
       done();
@@ -271,12 +275,13 @@ function getArticle() {
   var content = editor.getValue();
   var date = $('#date').val();
   var tags = $('#tags').val();
+  var thumbnail = $('#thumbnail').val();
   var key = $('#key').val();
   var categories = $('#categories').val();
   if (!date) {
     date = (new Date()).format('yyyy-mm-dd HH:MM:ss');
   }
   var article = {'title': title, 'date': date, 'tags': tags,
-                 'categories': categories, 'content': content, 'key': key};
+                 'categories': categories, 'content': content, 'key': key, 'thumbnail': thumbnail};
   return article;
 }
