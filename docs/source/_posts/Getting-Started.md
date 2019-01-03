@@ -1,6 +1,7 @@
 title: Getting Started
 date: 2016-06-20 20:43:49
 tags: [hexo,editor,markdown]
+thumbnail: 123
 categories: [docs]
 ---
 ## Dependencies

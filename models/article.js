@@ -14,6 +14,7 @@ class Article {
     this.rawContent = this.constructor.getRawContent({'title':'Untitled',
                                           'date': '',
                                           'tags': '',
+                                          'thumbnail': '',
                                           'categories': '',
                                           'content': ''});
     }
@@ -23,6 +24,7 @@ class Article {
     return 'title: ' + article.title + '\n' +
            'date: ' + article.date + '\n' +
            'tags: [' + article.tags + ']\n' +
+           'thumbnail: ' + article.thumbnail + '\n' +
            'categories: [' + article.categories + ']\n' +
            '---\n' + article.content;
   }
@@ -51,6 +53,7 @@ class Article {
     this.title = article.title;
     this.date = article.date;
     this.tags = article.tags;
+    this.thumbnail = article.thumbnail;
     this.categories = article.categories;
     this.rawContent = this.getRawContent(article);
     return this;
@@ -86,6 +89,17 @@ class Article {
     }
   }
 
+  getThumbnail() {
+    const regExp = /thumbnail: (.*)/i;
+    const thumbnail = regExp.exec(this.rawContent);
+    if (thumbnail != null && thumbnail.length > 0) {
+      return thumbnail[1];
+    } else {
+      return '';
+    }
+  }
+
+
   getCategories() {
     const regExp = /categories: (.*)/i;
     const categories = regExp.exec(this.rawContent);
@@ -111,6 +125,7 @@ class Article {
       "title": this.getTitle(),
       "date": this.getDate(),
       "tags": this.getTags(),
+      "thumbnail": this.getThumbnail(),
       "categories": this.getCategories(),
       "content": this.getContent(),
       "key": this.hashCode(),

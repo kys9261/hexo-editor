@@ -17,7 +17,7 @@ router.get('/', (req, res, next) => {
   cache.get(articleId, (article) => {
     if (!article) {
       article = {'title': 'Untitled', 'date': '', 'tags': '',
-                 'categories': '', 'content': '', 'key': ''};
+                 'categories': '', 'content': '', 'key': '', 'thumbnail':''};
     }
     res.render('editor', {'article': article});
   });

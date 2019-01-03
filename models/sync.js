@@ -14,6 +14,7 @@ function handleArticle(article, saveArticleCallback) {
     cache.get(cache_name + _article.key, (cachedArticle) => {
       cachedArticle.date = !_article.date ? cachedArticle.date : _article.date;
       cachedArticle.tags = !_article.tags ? cachedArticle.tags : _article.tags;
+      cachedArticle.thumbnail = !_article.thumbnail ? cachedArticle.thumbnail : _article.thumbnail;
       cachedArticle.categories = !_article.categories ? cachedArticle.categories : _article.categories;
       cache.get(cachedArticle.key, (originArticle) => {
         if (originArticle) {
@@ -26,7 +27,7 @@ function handleArticle(article, saveArticleCallback) {
     saveArticleCallback(article);
   }
   article = {'title': 'Untitled', 'date': '', 'tags': '',
-                'categories': '', 'content': '', 'key': ''};
+                'categories': '', 'content': '', 'key': '', 'thumbnail': ''};
   cache.put(cache_name, article);
 }
 
@@ -37,7 +38,7 @@ module.exports = (socket) => {
   cache.get(cache_name, (article) => {
     if (!article) {
       article = {'title': 'Untitled', 'date': new Date(), 'tags': '',
-                 'categories': '', 'content': '', 'key': ''};
+                 'categories': '', 'content': '', 'key': '', 'thumbnail': ''};
     }
     socket.emit('init', article);
   });
