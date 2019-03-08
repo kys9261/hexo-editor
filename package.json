@@ -41,7 +41,6 @@
     "express": "^4.15.2",
     "express-session": "^1.13.0",
     "hexo": "^3.2.2",
-    "hexo-deployer-git": "^1.0.0",
     "hexo-fs": "^0.1.5",
     "js-yaml": "^3.5.5",
     "morgan": "^1.7.0",
