@@ -1,0 +1,76 @@
+extends layout
+
+block content
+  header.mdl-shadow--6dp
+    button.mdl-button.mdl-js-button.mdl-button--icon.menu-btn(id='menu-btn', title='back', onclick='back()')
+      i.material-icons arrow_back
+    .editor-left-title
+      a.mdl-button.mdl-js-button.mdl-js-ripple-effect(title='workspace') Editor
+    ul
+      li.right-title
+        a.mdl-button.mdl-js-button.mdl-button--icon(title='publish', onclick='publish()')
+          i.material-icons publish
+      -
+        var items = [
+          {title:'save to drafts', onclick:'saveToDrafts()', icon: 'book'},
+          {title:'redo', onclick:'redo()', icon: 'redo'},
+          {title:'undo', onclick:'undo()', icon: 'undo'},
+          {title:'insert image', onclick:'uploadImage()', icon: 'insert_photo'},
+          {title:'insert link', onclick:'insertLink()', icon: 'insert_link'},
+          {title:'insert code', onclick:'formatCode()', icon: 'code'},
+          {title:'format quote', onclick:'formatQuote()', icon: 'format_quote'},
+          {title:'format list bulleted', onclick:'formatListBulleted()', icon: 'format_list_bulleted'},
+          {title:'format list numbered', onclick:'formatListNumbered()', icon: 'format_list_numbered'},
+          {title:'format italic', onclick:'formatItalic()', icon: 'format_italic'},
+          {title:'format bold', onclick:'formatBlod()', icon: 'format_bold'}
+        ]
+      each item in items
+        li.right-title.editor-format
+          a.mdl-button.mdl-js-button.mdl-button--icon(title=item.title, onclick=item.onclick)
+            i.material-icons=item.icon
+      li.right-title
+        a.mdl-button.mdl-js-button.mdl-button--icon(title='preview', onclick='preview()')
+          i.material-icons(id='visibility') visibility
+      li
+        input(id='title', value=article.title)
+        input(id='key', type='hidden', value=article.key)
+      li.editor-format
+        #done
+        #loading
+          .mdl-spinner.mdl-js-spinner.is-active
+
+  #editor-meta-data
+    .meta-data.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+      input.mdl-textfield__input(id='date', type='text', value=article.date, name='date')
+      label.mdl-textfield__label(for='date') Date
+    .meta-data.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+      input.mdl-textfield__input(id='tags', type='text', value=article.tags, name='tags')
+      label.mdl-textfield__label(for='tags') Tags
+    .meta-data.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+      input.mdl-textfield__input(id='categories', type='text', value=article.categories, name='categories')
+      label.mdl-textfield__label(for='categories') Categories
+    .meta-data.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+      input.mdl-textfield__input(id='thumbnail', type='text', value=article.thumbnail, name='thumbnail')
+      label.mdl-textfield__label(for='thumbnail') Thumbnail
+
+  #editor-wapper
+    #editor.mdl-shadow--2dp
+    #preview.markdown-body.mdl-shadow--2dp
+
+  #image-upload-dialog.mdl-shadow--2dp
+    a.close(onclick='closeDialog("#image-upload-dialog")')
+      i.material-icons(id='clear') clear
+    form(id='image')
+    .file_input_div
+      .file_input
+        label.image_input_button.mdl-button.mdl-js-button.mdl-button--fab.mdl-button--mini-fab.mdl-js-ripple-effect
+          i.material-icons file_upload
+          input#file_input.none(type='file')
+      #file_input_text_div.mdl-textfield.mdl-js-textfield
+        input#file_input_text.file_input_text.mdl-textfield__input(type='text', disabled='', readonly='')
+        label.mdl-textfield__label(for='file_input_text')
+      button.mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect(id='upload-image-btn', onclick='insertImage()')
+        | Insert Image
+
+  script(type="text/javascript").
+    afterEditorLoad("#{article.key}");
